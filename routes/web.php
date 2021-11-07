@@ -16,8 +16,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('list','App\Http\Controllers\Controller@index');
+//Route::get('list','App\Http\Controllers\Controller@index');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('/panel', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::group([
+    'middleware'=> ['auth','isAdmin'],
+    'prefix'=>'admin'
+
+
+    ],function(){
+
+
+    Route::get('list', function () {
+        return "prefix testi";
+    });
+});
+
+
